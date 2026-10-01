@@ -9,7 +9,7 @@ final apiServiceProvider = Provider((ref) => ApiService());
 class ApiService {
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'https://mlapp.codexxa.co.in/api/',
+      baseUrl: 'https://mla.bizz-manager.com/api/',
 
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
@@ -1386,12 +1386,12 @@ class ApiService {
   }
 }
 
-  String _handleError(Object e) {
-    if (e is DioException) {
-      if (e.error is String) return e.error as String;
-      return e.message ?? 'Network error';
-    } else if (e is Exception) {
-      return e.toString().replaceAll('Exception: ', '');
-    }
-    return 'An unexpected error occurred. Please try again.';
+String _handleError(Object e) {
+  if (e is DioException) {
+    if (e.error is String) return e.error as String;
+    return e.message ?? 'Network error';
+  } else if (e is Exception) {
+    return e.toString().replaceAll('Exception: ', '');
   }
+  return 'An unexpected error occurred. Please try again.';
+}
