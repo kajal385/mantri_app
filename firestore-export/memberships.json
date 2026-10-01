@@ -1,0 +1,44 @@
+[
+  {
+    "id": "5SBxfv9xZKSOdC6chdpibw7UZav2",
+    "area": "pune",
+    "role": "Volunteer",
+    "digitalId": "MEM-326227",
+    "fullName": "demo user ",
+    "userId": "5SBxfv9xZKSOdC6chdpibw7UZav2",
+    "status": "Active",
+    "createdAt": {
+      "_seconds": 1776264327,
+      "_nanoseconds": 21000000
+    },
+    "taskCompleted": true
+  },
+  {
+    "id": "BWv1PSpwphM60tsFPcN6p1Zwrew1",
+    "userId": "BWv1PSpwphM60tsFPcN6p1Zwrew1",
+    "digitalId": "MEM-661910",
+    "fullName": "TestUser",
+    "role": "Party Worker",
+    "area": "Kolhapur",
+    "status": "Active",
+    "taskCompleted": false,
+    "createdAt": {
+      "_seconds": 1776066662,
+      "_nanoseconds": 577000000
+    }
+  },
+  {
+    "id": "g7XzhnLTKrSOY2STusXeiPU0j9j1",
+    "area": "pune",
+    "role": "Party Worker",
+    "digitalId": "MEM-045924",
+    "fullName": "demo user",
+    "userId": "g7XzhnLTKrSOY2STusXeiPU0j9j1",
+    "status": "Active",
+    "createdAt": {
+      "_seconds": 1776264046,
+      "_nanoseconds": 709000000
+    },
+    "taskCompleted": true
+  }
+]

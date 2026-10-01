@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "137436429211",
+    "project_id": "mykiranamart-f7df3",
+    "storage_bucket": "mykiranamart-f7df3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137436429211:android:011bbcf0fdb70ea5697f3e",
+        "android_client_info": {
+          "package_name": "com.example.mantri_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7S94wot6TVmrlytpUQ-sMaSt59qL0dVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137436429211:android:852aef8ed963bb3e697f3e",
+        "android_client_info": {
+          "package_name": "com.mykiranamart.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7S94wot6TVmrlytpUQ-sMaSt59qL0dVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

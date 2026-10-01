@@ -1,0 +1,32 @@
+[
+  {
+    "id": "5SBxfv9xZKSOdC6chdpibw7UZav2_infra_upgrade_2026",
+    "pollId": "infra_upgrade_2026",
+    "choice": "Hospital Facilities",
+    "userId": "5SBxfv9xZKSOdC6chdpibw7UZav2",
+    "createdAt": {
+      "_seconds": 1776264338,
+      "_nanoseconds": 904000000
+    }
+  },
+  {
+    "id": "BWv1PSpwphM60tsFPcN6p1Zwrew1_infra_upgrade_2026",
+    "pollId": "infra_upgrade_2026",
+    "choice": "Hospital Facilities",
+    "userId": "BWv1PSpwphM60tsFPcN6p1Zwrew1",
+    "createdAt": {
+      "_seconds": 1776057953,
+      "_nanoseconds": 565000000
+    }
+  },
+  {
+    "id": "g7XzhnLTKrSOY2STusXeiPU0j9j1_infra_upgrade_2026",
+    "pollId": "infra_upgrade_2026",
+    "choice": "Hospital Facilities",
+    "userId": "g7XzhnLTKrSOY2STusXeiPU0j9j1",
+    "createdAt": {
+      "_seconds": 1776264061,
+      "_nanoseconds": 758000000
+    }
+  }
+]

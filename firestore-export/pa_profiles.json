@@ -1,0 +1,27 @@
+[
+  {
+    "id": "CkgCEaLrzbP1oskhAqFXK0goDT22",
+    "education": "BA",
+    "address": "Akola",
+    "role": "pa",
+    "idProofNumber": "98765432106",
+    "employeeId": "123456",
+    "idProofType": "Aadhaar Card",
+    "joiningDate": {
+      "_seconds": 1776837618,
+      "_nanoseconds": 90061000
+    },
+    "assignedTo": "Anup Dhotre (MP)",
+    "createdAt": {
+      "_seconds": 1776837725,
+      "_nanoseconds": 907912000
+    },
+    "phone": "9876543210",
+    "officeLocation": "Akola Office",
+    "name": "Rahil patil",
+    "designation": "Personal Assistant",
+    "profileImageUrl": null,
+    "email": "rahul@gmail.com",
+    "status": "inactive"
+  }
+]

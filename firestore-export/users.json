@@ -1,0 +1,78 @@
+[
+  {
+    "id": "CkgCEaLrzbP1oskhAqFXK0goDT22",
+    "area": null,
+    "role": "pa",
+    "phone": "9876543210",
+    "name": "Rahil patil",
+    "ward": null,
+    "village": null,
+    "email": "rahul@gmail.com"
+  },
+  {
+    "id": "JX2ZnErwbyMr2UUoqoKwrJ66xEG2",
+    "role": "admin",
+    "name": "Admin",
+    "email": "admin12@gmail.com"
+  },
+  {
+    "id": "JbPgxbvZeodHsczfeZAMNNCYXtO2",
+    "role": "pa",
+    "name": "Personal Assistant",
+    "email": "pa@gmail.com"
+  },
+  {
+    "id": "PQ7nCd9UNmQgf9Tw2aR3uwY1eeI2",
+    "role": "user",
+    "name": "Users",
+    "email": "user123@gmail.com",
+    "area": "pune",
+    "phone": "9876543210",
+    "ward": "210",
+    "village": "Maval"
+  },
+  {
+    "id": "Q1M4LG31xISZ3yZ0Dv6H2filQyE2",
+    "role": "admin",
+    "name": "xyz",
+    "email": "xyz1@gmail.com"
+  },
+  {
+    "id": "fzGxu7bwuJg3LkG53p4yEYKzvR22",
+    "role": "admin",
+    "name": "Admin",
+    "email": "admin@gmail.com"
+  },
+  {
+    "id": "hlnSdlJYUgeoJM32RP3xOXsjvZa2",
+    "role": "pa",
+    "name": "PA",
+    "email": "pa123@gmail.com"
+  },
+  {
+    "id": "mJ6vrG6iXlaRsSGOhev9LXuneZU2",
+    "area": "hhhgv",
+    "role": "pa",
+    "phone": "1234567788",
+    "name": "PAA",
+    "ward": "uftuf",
+    "village": "fufufu",
+    "email": "paa@gmail.com"
+  },
+  {
+    "id": "rr2O5TtVl2Uz4NUFMNLgjXpQNBy1",
+    "role": "admin",
+    "name": "MP Admin",
+    "email": "gajarekajal2205@gmail.com"
+  },
+  {
+    "id": "z7VC8DrY4TSN5qf8kaqh3wfbG0d2",
+    "area": "Mumbai",
+    "role": "user",
+    "phone": "9765432100",
+    "name": "sonali gajare",
+    "ward": "222",
+    "village": "thane",
+    "email": "sona@gmail.com"
+  }
+]

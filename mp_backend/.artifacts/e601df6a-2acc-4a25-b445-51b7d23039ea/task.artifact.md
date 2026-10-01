@@ -1,0 +1,11 @@
+- `[ ]` uncompleted tasks
+- `[/]` in progress tasks (custom notation)
+- `[x]` completed tasks
+- Use indented lists for sub-items
+
+- [x] **Backend - Auth Optional Email Fix**
+    - [x] Modify `AuthController.php@register` to handle optional email more robustly
+    - [x] Ensure empty email strings are treated as `null`
+    - [x] Update validation rules to avoid `required` conflicts
+- [ ] **Verification**
+    - [x] Logic updated to make email validation conditional on presence of data.
