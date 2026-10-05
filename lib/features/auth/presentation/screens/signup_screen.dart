@@ -54,14 +54,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) {
-      final l10n = AppLocalizations.of(context);
-      AppDialogs.showErrorDialog(context);
+      AppDialogs.showErrorDialog(context, userMessage: 'Please fill all required fields correctly.');
       return;
     }
 
     if (!_agreePolicy) {
-      final l10n = AppLocalizations.of(context);
-      AppDialogs.showErrorDialog(context);
+      AppDialogs.showErrorDialog(context, userMessage: 'Please accept the privacy policy to continue.');
       return;
     }
 
@@ -80,7 +78,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
       // 1. Upload Profile Image if selected
       if (_profileImage != null) {
-        profileImageUrl = await authService.uploadProfileImage(_profileImage!);
+        try {
+          profileImageUrl = await authService.uploadProfileImage(_profileImage!);
+        } catch (e) {
+          debugPrint('Profile image upload failed: $e');
+        }
       }
 
       final stateToSave =
@@ -99,14 +101,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       // 2. Sign Up
       await authService.signUp(
         name,
-        email,
+        email.isNotEmpty ? email : null,
         pass,
         _selectedRole,
         phone: phone,
-        state: stateToSave,
-        city: cityToSave,
-        ward: ward,
-        village: villageToSave,
+        state: (stateToSave != null && stateToSave.isNotEmpty) ? stateToSave : 'N/A',
+        city: (cityToSave != null && cityToSave.isNotEmpty) ? cityToSave : 'N/A',
+        ward: ward.isNotEmpty ? ward : 'N/A',
+        village: villageToSave.isNotEmpty ? villageToSave : 'N/A',
         dob: dob.isNotEmpty ? dob : null,
         profileImageUrl: profileImageUrl,
       );
@@ -115,7 +117,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       }
     } catch (e) {
       if (mounted) {
-        AppDialogs.showErrorDialog(context, technicalError: e);
+        AppDialogs.showErrorDialog(context, userMessage: e.toString());
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);

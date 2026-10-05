@@ -77,7 +77,7 @@ class AuthService {
 
   Future<void> signUp(
     String name,
-    String email,
+    String? email,
     String password,
     UserRole role, {
     String? phone,
@@ -89,7 +89,7 @@ class AuthService {
     String? dob,
     String? profileImageUrl,
   }) async {
-    await _ref
+    final data = await _ref
         .read(apiServiceProvider)
         .register(
           name,
@@ -105,16 +105,25 @@ class AuthService {
           dob: dob,
         );
 
-    // Auto-login after register
-    // Use phone number for login if email is not provided
-    final loginId = (email != null && email.isNotEmpty) ? email : phone;
-    if (loginId != null && loginId.isNotEmpty) {
-      await signIn(loginId, password);
+    // If register returned the user object, set it immediately!
+    if (data['user'] != null && data['user'] is Map) {
+      final userMap = Map<String, dynamic>.from(data['user'] as Map);
+      final user = AppUser.fromMap(userMap, userMap['id'].toString());
+      _ref.read(laravelUserProvider.notifier).state = user;
+      _ref.invalidate(authStateProvider);
+    } else {
+      // Auto-login fallback if user object was not in response
+      final loginId = (email != null && email.isNotEmpty) ? email : phone;
+      if (loginId != null && loginId.isNotEmpty) {
+        await signIn(loginId, password);
+      }
     }
 
-    // Save profile image URL if provided (after login so token is available)
+    // Save profile image URL if provided (after registration/login so token is stored)
     if (profileImageUrl != null && profileImageUrl.isNotEmpty) {
-      await updateProfileImageUrl(profileImageUrl);
+      try {
+        await updateProfileImageUrl(profileImageUrl);
+      } catch (_) {}
     }
   }
 

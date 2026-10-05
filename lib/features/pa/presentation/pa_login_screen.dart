@@ -66,14 +66,18 @@ class _PALoginScreenState extends ConsumerState<PALoginScreen>
       await ref.read(authServiceProvider).signIn(email, pass);
       if (mounted) context.go('/home');
     } catch (e) {
-      _snack('Authentication failed. Check your credentials.');
+      String errorMessage = e.toString();
+      if (errorMessage.contains('] ')) {
+        errorMessage = errorMessage.split('] ').last;
+      }
+      _snack('Authentication failed: $errorMessage');
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
   }
 
   void _snack(String msg) {
-    AppDialogs.showErrorDialog(context);
+    AppDialogs.showErrorDialog(context, userMessage: msg);
   }
 
   @override

@@ -32,8 +32,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
     final pass = _passwordController.text.trim();
 
     if (!_formKey.currentState!.validate()) {
-      final l10n = AppLocalizations.of(context);
-      AppDialogs.showErrorDialog(context);
+      AppDialogs.showErrorDialog(
+        context,
+        userMessage:
+            'Please enter a valid email or 10-digit mobile number and password.',
+      );
       return;
     }
 
@@ -44,7 +47,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
       }
     } catch (e) {
       if (mounted) {
-        AppDialogs.showErrorDialog(context, userMessage: 'Authentication failed:', technicalError: e);
+        String errorMessage = e.toString();
+        if (errorMessage.contains('] ')) {
+          errorMessage = errorMessage.split('] ').last;
+        }
+        AppDialogs.showErrorDialog(context, userMessage: errorMessage);
       }
     }
   }

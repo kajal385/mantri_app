@@ -98,18 +98,23 @@ class AppDialogs {
     }
 
     // Clean up the message for the user
-    String displayMessage = userMessage ?? 'Something went wrong. Please try again.';
+    String displayMessage = userMessage?.trim() ?? '';
     
     // If no userMessage provided but technicalError is, map common cases or fallback
-    if (userMessage == null && technicalError != null) {
-      final errorStr = technicalError.toString().toLowerCase();
-      if (errorStr.contains('socket') || errorStr.contains('network') || errorStr.contains('timeout')) {
+    if (displayMessage.isEmpty && technicalError != null) {
+      final errorStr = technicalError.toString().trim();
+      final lower = errorStr.toLowerCase();
+      if (lower.contains('socket') || lower.contains('network') || lower.contains('timeout')) {
         displayMessage = 'Network error. Please check your connection and try again.';
-      } else if (technicalError.toString().startsWith('Exception: ')) {
-         displayMessage = technicalError.toString().replaceFirst('Exception: ', '');
-      } else {
-         displayMessage = 'Something went wrong. Please try again.';
+      } else if (errorStr.startsWith('Exception: ')) {
+        displayMessage = errorStr.replaceFirst('Exception: ', '');
+      } else if (errorStr.isNotEmpty && !errorStr.startsWith('Instance of ')) {
+        displayMessage = errorStr;
       }
+    }
+
+    if (displayMessage.isEmpty) {
+      displayMessage = 'Something went wrong. Please try again.';
     }
 
     await _showPopup(

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,10 +10,10 @@ final apiServiceProvider = Provider((ref) => ApiService());
 class ApiService {
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'https://mla.bizz-manager.com/api/',
+      baseUrl: 'http://mla.bizz-manager.com/public/public/api',
 
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 15),
+      receiveTimeout: const Duration(seconds: 15),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -51,8 +52,28 @@ class ApiService {
               Map<String, dynamic>? data;
               if (rawData is Map<String, dynamic>) {
                 data = rawData;
+              } else if (rawData is Map) {
+                data = Map<String, dynamic>.from(rawData);
+              } else if (rawData is String && rawData.trim().startsWith('{')) {
+                data = Map<String, dynamic>.from(jsonDecode(rawData) as Map);
               }
-              if (data != null && data['message'] != null) {
+
+              if (data != null && data['errors'] is Map) {
+                final errMap = data['errors'] as Map;
+                final errList = <String>[];
+                for (final val in errMap.values) {
+                  if (val is List && val.isNotEmpty) {
+                    errList.add(val.first.toString());
+                  } else if (val != null) {
+                    errList.add(val.toString());
+                  }
+                }
+                if (errList.isNotEmpty) {
+                  message = errList.join('\n');
+                } else if (data['message'] != null) {
+                  message = data['message'].toString();
+                }
+              } else if (data != null && data['message'] != null) {
                 message = data['message'].toString();
               } else if (data != null && data['error'] != null) {
                 message = data['error'].toString();
@@ -62,7 +83,7 @@ class ApiService {
                     message = 'Bad request. Please check your input.';
                     break;
                   case 401:
-                    message = 'Session expired. Please log in again.';
+                    message = 'Invalid credentials. Please check your username/password.';
                     break;
                   case 403:
                     message = 'Access denied.';
@@ -86,7 +107,7 @@ class ApiService {
           } else if (e.type == DioExceptionType.connectionTimeout ||
               e.type == DioExceptionType.receiveTimeout ||
               e.type == DioExceptionType.sendTimeout) {
-            message = 'Connection timed out. Please check your internet.';
+            message = 'Connection timed out. Please check your internet connection.';
           } else {
             message = 'Network error. Please check your internet connection.';
           }
@@ -111,20 +132,23 @@ class ApiService {
     try {
       final response = await _dio.post(
         '/login',
-        data: {'email': email, 'password': password},
+        data: {'email': email.trim(), 'password': password.trim()},
       );
-      final token = response.data['token'];
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('auth_token', token);
-      return response.data;
+      final resData = Map<String, dynamic>.from(response.data as Map);
+      final token = resData['token'];
+      if (token != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('auth_token', token.toString());
+      }
+      return resData;
     } catch (e) {
       throw _handleError(e);
     }
   }
 
-  Future<void> register(
+  Future<Map<String, dynamic>> register(
     String name,
-    String email,
+    String? email,
     String password,
     String role, {
     String? phone,
@@ -138,15 +162,15 @@ class ApiService {
   }) async {
     try {
       final data = <String, dynamic>{
-        'name': name,
-        'password': password,
+        'name': name.trim(),
+        'password': password.trim(),
         'role': role,
-        'phone': phone,
-        'state': state,
-        'city': city,
-        'area': area,
-        'ward': ward,
-        'village': village,
+        'phone': phone?.trim(),
+        'state': (state != null && state.trim().isNotEmpty) ? state.trim() : 'N/A',
+        'city': (city != null && city.trim().isNotEmpty) ? city.trim() : 'N/A',
+        'area': area?.trim(),
+        'ward': (ward != null && ward.trim().isNotEmpty) ? ward.trim() : 'N/A',
+        'village': (village != null && village.trim().isNotEmpty) ? village.trim() : 'N/A',
         'dob': dob,
         'firebase_id': firebaseId,
       };
@@ -157,9 +181,13 @@ class ApiService {
       }
 
       final response = await _dio.post('/register', data: data);
-      final token = response.data['token'];
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('auth_token', token);
+      final resData = Map<String, dynamic>.from(response.data as Map);
+      final token = resData['token'];
+      if (token != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('auth_token', token.toString());
+      }
+      return resData;
     } catch (e) {
       throw _handleError(e);
     }
